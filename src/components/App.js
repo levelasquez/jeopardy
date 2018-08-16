@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { setCategories, pickCategory } from '../actions'
 
-class App extends Component {
+export class App extends Component {
   componentDidMount() {
     const { categories, setCategories } = this.props
 
