@@ -3,15 +3,33 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 
 class Category extends Component {
-  render() {
+  state = {
+    clues: [],
+  }
+
+  componentDidMount() {
     const { category } = this.props
-    console.log({ category })
+
+    fetch(`http://jservice.io/api/clues?category=${category.id}`)
+      .then(response => response.json())
+      .then(clues => this.setState({ clues }))
+  }
+
+  render() {
+    const { clues } = this.state
+    const { category } = this.props
+
     return (
       <div>
         <Link className='link-home' to='/'>
           <h4>Home</h4>
         </Link>
-        <h2>Category title</h2>
+        <h2>{category.title}</h2>
+        {clues.map(clue => (
+          <div key={clue.id}>
+            {clue.question}
+          </div>
+        ))}
       </div>
     )
   }
