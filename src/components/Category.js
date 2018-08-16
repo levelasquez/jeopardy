@@ -1,8 +1,11 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
 
 class Category extends Component {
   render() {
+    const { category } = this.props
+    console.log({ category })
     return (
       <div>
         <Link className='link-home' to='/'>
@@ -14,4 +17,8 @@ class Category extends Component {
   }
 }
 
-export default Category
+const mapStateToProps = ({ category }) => ({ category })
+
+const connectedCategory = connect(mapStateToProps)(Category)
+
+export default connectedCategory

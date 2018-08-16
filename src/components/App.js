@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { setCategories } from '../actions'
+import { setCategories, pickCategory } from '../actions'
 
 class App extends Component {
   componentDidMount() {
@@ -14,6 +14,12 @@ class App extends Component {
     }
   }
 
+  handleCategory = category => () => {
+    const { pickCategory } = this.props
+
+    pickCategory(category)
+  }
+
   render() {
     const { categories } = this.props
 
@@ -22,7 +28,10 @@ class App extends Component {
         <h2>Jeopardy</h2>
         {categories.map(category => (
           <div key={category.id}>
-            <Link to='/category'>
+            <Link
+              to='/category'
+              onClick={this.handleCategory(category)}
+            >
               <h4>{category.title}</h4>
             </Link>
           </div>
@@ -32,8 +41,8 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = state => ({ categories: state })
+const mapStateToProps = ({ categories }) => ({ categories })
 
-const connectedApp = connect(mapStateToProps, { setCategories })(App)
+const connectedApp = connect(mapStateToProps, { setCategories, pickCategory })(App)
 
 export default connectedApp
