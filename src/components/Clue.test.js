@@ -8,7 +8,7 @@ const props = {
 }
 
 describe('Clue component', () => {
-  const clueWrapper = shallow(<Clue {...props} />)
+  let clueWrapper = shallow(<Clue {...props} />)
 
   test('renders the clue value', () => {
     const value = clueWrapper.find('h4').text()
@@ -38,5 +38,35 @@ describe('Clue component', () => {
     const reveal = clueWrapper.state().reveal
 
     expect(reveal).toBe(false)
+  })
+
+  describe('when rendering a clue with no value', () => {
+    beforeEach(() => {
+      props.clue.value = undefined
+
+      clueWrapper = shallow(<Clue {...props} />)
+    })
+
+    test('displays the value as `unknown`', () => {
+      const value = clueWrapper.find('h4').text()
+
+      expect(value).toEqual('unknown')
+    })
+  })
+
+  describe('when clicking on the clue', () => {
+    beforeEach(() => clueWrapper.simulate('click'))
+
+    test('sets the `reveal` state to be true', () => {
+      const state = clueWrapper.state().reveal
+
+      expect(state).toBe(true)
+    })
+
+    test('sets the answer with the `text-revealed` class', () => {
+      const className = clueWrapper.find('h5').at(1).hasClass('text-revealed')
+
+      expect(className).toBe(true)
+    })
   })
 })
