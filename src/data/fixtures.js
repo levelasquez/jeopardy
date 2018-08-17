@@ -9,6 +9,14 @@ const categories = [{
   title: 'category three',
 }]
 
+const clue = {
+  id: 0,
+  question: 'q one',
+  answer: 'a one',
+  value: 200,
+}
+
 export {
   categories,
+  clue,
 }
