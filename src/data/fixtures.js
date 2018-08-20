@@ -9,6 +9,8 @@ const categories = [{
   title: 'category three',
 }]
 
+const category = categories[0]
+
 const clue = {
   id: 0,
   question: 'q one',
@@ -28,6 +30,7 @@ const clues = [
 
 export {
   categories,
+  category,
   clue,
   clues,
 }
