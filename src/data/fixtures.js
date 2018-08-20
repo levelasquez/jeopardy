@@ -16,7 +16,18 @@ const clue = {
   value: 200,
 }
 
+const clues = [
+  clue,
+  {
+    id: 1,
+    question: 'q two',
+    answer: 'a two',
+    value: 400,
+  },
+]
+
 export {
   categories,
   clue,
+  clues,
 }
