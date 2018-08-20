@@ -1,7 +1,7 @@
 import React from 'react'
-import { mount } from 'enzyme'
+import { mount, shallow } from 'enzyme'
 import { fakeServer } from 'sinon'
-import { Category } from './Category'
+import { Category, LinkedCategory } from './Category'
 import { categories, clues } from '../data/fixtures'
 
 const props = { category: categories[0] }
@@ -31,12 +31,44 @@ describe('Category component', () => {
 
       server.respond()
 
-      setTimeout(done)
+      setTimeout(() => {
+        category.update()
+        done()
+      })
     })
 
-    test('logs the category', () => {
-      category.update()
-      console.log(category.debug())
+    test('initializes the clues in state', () => {
+      const state = category.state().clues
+
+      expect(state).toEqual(clues)
     })
+
+    test('renders the category title', () => {
+      const title = category.find('h2').text()
+
+      expect(title).toEqual(props.category.title)
+    })
+
+    test('renders the correct numbers of clues', () => {
+      const numberOfClues = category.find('Clue').length
+
+      expect(numberOfClues).toEqual(clues.length)
+    })
+  })
+})
+
+describe('LinkedCategory component', () => {
+  const linkedCategory = shallow(< LinkedCategory />)
+
+  test('creates the link to navigate home', () => {
+    const link = linkedCategory.find('Link h4').text()
+
+    expect(link).toEqual('Home')
+  })
+
+  test('creates a category component', () => {
+    const categoryComponent = linkedCategory.find('Category').exists()
+
+    expect(categoryComponent).toBe(true)
   })
 })

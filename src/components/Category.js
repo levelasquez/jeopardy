@@ -31,7 +31,7 @@ export class Category extends Component {
   }
 }
 
-class LinkedCategory extends Component {
+export class LinkedCategory extends Component {
   render() {
     const { category } = this.props
 
